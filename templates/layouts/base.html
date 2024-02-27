@@ -1,0 +1,197 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+
+<!-- Mirrored from preview.colorlib.com/theme/balita/about.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Feb 2024 15:05:59 GMT -->
+<head>
+    <title>Colorlib Balita &mdash; Minimal Blog Template</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link href="https://fonts.googleapis.com/css?family=Josefin+Sans:300,%20400,700" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}">
+    <link rel="stylesheet" href="{% static 'css/animate.css' %}">
+    <link rel="stylesheet" href="{% static 'css/owl.carousel.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/ionicons/css/ionicons.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/fontawesome/css/font-awesome.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fonts/flaticon/font/flaticon.css' %}">
+
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <script nonce="513c414b-3575-43cd-a58e-3335f15c4245">
+        try{(function(w,d){!function(j,k,l,m){j[l]=j[l]||{};j[l].executed=[];j.zaraz={deferred:[],listeners:[]};j.zaraz.q=[];j.zaraz._f=function(n){return async function(){var o=Array.prototype.slice.call(arguments);j.zaraz.q.push({m:n,a:o})}};for(const p of["track","set","debug"])j.zaraz[p]=j.zaraz._f(p);j.zaraz.init=()=>{var q=k.getElementsByTagName(m)[0],r=k.createElement(m),s=k.getElementsByTagName("title")[0];s&&(j[l].t=k.getElementsByTagName("title")[0].text);j[l].x=Math.random();j[l].w=j.screen.width;j[l].h=j.screen.height;j[l].j=j.innerHeight;j[l].e=j.innerWidth;j[l].l=j.location.href;j[l].r=k.referrer;j[l].k=j.screen.colorDepth;j[l].n=k.characterSet;j[l].o=(new Date).getTimezoneOffset();if(j.dataLayer)for(const w of Object.entries(Object.entries(dataLayer).reduce(((x,y)=>({...x[1],...y[1]})),{})))zaraz.set(w[0],w[1],{scope:"page"});j[l].q=[];for(;j.zaraz.q.length;){const z=j.zaraz.q.shift();j[l].q.push(z)}r.defer=!0;for(const A of[localStorage,sessionStorage])Object.keys(A||{}).filter((C=>C.startsWith("_zaraz_"))).forEach((B=>{try{j[l]["z_"+B.slice(7)]=JSON.parse(A.getItem(B))}catch{j[l]["z_"+B.slice(7)]=A.getItem(B)}}));r.referrerPolicy="origin";r.src="https://preview.colorlib.com/cdn-cgi/zaraz/s.js?z="+btoa(encodeURIComponent(JSON.stringify(j[l])));q.parentNode.insertBefore(r,q)};["complete","interactive"].includes(k.readyState)?zaraz.init():j.addEventListener("DOMContentLoaded",zaraz.init)}(w,d,"zarazData","script");})(window,document)}catch(e){throw fetch("/cdn-cgi/zaraz/t"),e;};
+    </script>
+</head>
+<body>
+<header role="banner">
+    <div class="top-bar">
+        <div class="container">
+            <div class="row">
+                <div class="col-9 social">
+                    <a href="#"><span class="fa fa-twitter"></span></a>
+                    <a href="#"><span class="fa fa-facebook"></span></a>
+                    <a href="#"><span class="fa fa-instagram"></span></a>
+                    <a href="#"><span class="fa fa-youtube-play"></span></a>
+                    <a href="#"><span class="fa fa-vimeo"></span></a>
+                    <a href="#"><span class="fa fa-snapchat"></span></a>
+                </div>
+                <div class="col-3 search-top">
+
+                    <form action="{% url 'home' %}" class="search-top-form">
+                        <span class="icon fa fa-search"></span>
+                        <input type="search" id="s" placeholder="Type keyword to search..." name="search">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container logo-wrap">
+        <div class="row pt-5">
+            <div class="col-12 text-center">
+                <a class="absolute-toggle d-block d-md-none" data-toggle="collapse" href="#navbarMenu" role="button"
+                   aria-expanded="false" aria-controls="navbarMenu"><span class="burger-lines"></span></a>
+                <h1 class="site-logo"><a href="/">Balita</a></h1>
+            </div>
+        </div>
+    </div>
+    <nav class="navbar navbar-expand-md  navbar-light bg-light">
+        <div class="container">
+            <div class="collapse navbar-collapse" id="navbarMenu">
+                <ul class="navbar-nav mx-auto">
+                    <li class="nav-item">
+                        <a class="nav-link {{ home }}" href="/">Home</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle {{ categoriess }} " href="category.html" id="dropdown05" data-toggle="dropdown"
+                           aria-haspopup="true" aria-expanded="false">Categories</a>
+                        <div class="dropdown-menu" aria-labelledby="dropdown05">
+                            {% for category in categories %}
+                                <a class="dropdown-item" href="/category/?category={{ category.name }}">{{ category.name }}</a>
+                            {% endfor %}
+                        </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ about }}" href="/about">About</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link {{ contact }}" href="/contact">Contact</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+</header>
+
+{% block content %}
+
+{% endblock %}
+
+<footer class="site-footer">
+    <div class="container">
+        <div class="row mb-5">
+            {% for page in page %}
+                {% if forloop.counter <= 1 %}
+                    <div class="col-md-4">
+                <h3>Paragraph</h3>
+                <p>
+                    <img src="{{ page.image.url }}" alt="Image placeholder" class="img-fluid">
+                </p>
+                <p>{{ post.description|truncatewords:20 }}</p>
+            </div>
+                {% endif %}
+            {% endfor %}
+            <div class="col-md-6 ml-auto">
+                <div class="row">
+                    <div class="col-md-7">
+                        <h3>Latest Post</h3>
+                        <div class="post-entry-sidebar">
+                            <ul>
+                                {% for page in page %}
+                                    {% if forloop.counter > 1 and forloop.counter <= 4%}
+                                        <li>
+                                    <a href="/blog/{{ page.id }}">
+                                        <img src="{{ page.image.url }}" alt="Image placeholder" class="mr-4">
+                                        <div class="text">
+                                            <h4>{{ page.title }}</h4>
+                                            <div class="post-meta">
+                                                <span class="mr-2">{{ page.created_at }}</span> &bullet;
+                                                <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                                            </div>
+                                        </div>
+                                    </a>
+                                </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="col-md-1"></div>
+                    <div class="col-md-4">
+                        <div class="mb-5">
+                            <h3>Quick Links</h3>
+                            <ul class="list-unstyled">
+                                <li><a href="#">About Us</a></li>
+                                <li><a href="#">Travel</a></li>
+                                <li><a href="#">Adventure</a></li>
+                                <li><a href="#">Courses</a></li>
+                                <li><a href="#">Categories</a></li>
+                            </ul>
+                        </div>
+                        <div class="mb-5">
+                            <h3>Social</h3>
+                            <ul class="list-unstyled footer-social">
+                                <li><a href="#"><span class="fa fa-twitter"></span> Twitter</a></li>
+                                <li><a href="#"><span class="fa fa-facebook"></span> Facebook</a></li>
+                                <li><a href="#"><span class="fa fa-instagram"></span> Instagram</a></li>
+                                <li><a href="#"><span class="fa fa-vimeo"></span> Vimeo</a></li>
+                                <li><a href="#"><span class="fa fa-youtube-play"></span> Youtube</a></li>
+                                <li><a href="#"><span class="fa fa-snapchat"></span> Snapshot</a></li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+
+                Copyright &copy;<script>document.write(new Date().getFullYear());</script>
+                All rights reserved | This template is made with <i class="fa fa-heart-o" aria-hidden="true"></i> by <a
+                    href="https://colorlib.com/" target="_blank">Colorlib</a>
+
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<div id="loader" class="show fullscreen">
+    <svg class="circular" width="48px" height="48px">
+        <circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/>
+        <circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10"
+                stroke="#f4b214"/>
+    </svg>
+</div>
+<script src="{% static 'js/jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'js/jquery-migrate-3.0.0.js' %}"></script>
+<script src="{% static 'js/popper.min.js' %}"></script>
+<script src="{% static 'js/bootstrap.min.js' %}"></script>
+<script src="{% static 'js/owl.carousel.min.js' %}"></script>
+<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'js/jquery.stellar.min.js' %}"></script>
+<script src="{% static 'js/main.js' %}"></script>
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-23581568-13"></script>
+<script>
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+
+      gtag('config', 'UA-23581568-13');
+</script>
+<script defer src="https://static.cloudflareinsights.com/beacon.min.js/v84a3a4012de94ce1a686ba8c167c359c1696973893317"
+        integrity="sha512-euoFGowhlaLqXsPWQ48qSkBSCFs3DPRyiwVu3FjR96cMPx+Fr+gpWRhIafcHwqwCqWS42RZhIudOvEI+Ckf6MA=="
+        data-cf-beacon='{"rayId":"858fe3058e058506","b":1,"version":"2024.2.1","token":"cd0b4b3a733644fc843ef0b185f98241"}'
+        crossorigin="anonymous"></script>
+</body>
+
+<!-- Mirrored from preview.colorlib.com/theme/balita/about.html by HTTrack Website Copier/3.x [XR&CO'2014], Wed, 21 Feb 2024 15:05:59 GMT -->
+</html>
