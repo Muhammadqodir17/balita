@@ -32,17 +32,17 @@
                         <h2>My Latest Posts</h2>
                     </div>
                     <div class="col-md-12">
-                        {% for post in posts %}
+                        {% for page in page %}
                             <div class="post-entry-horzontal">
-                            <a href="/blog/{{ post.id }}">
-                                <div class="image" style="background-image: url({{ post.image.url }});"></div>
+                            <a href="/blog/{{ page.id }}">
+                                <div class="image" style="background-image: url({{ page.image.url }});"></div>
                                 <span class="text">
 <div class="post-meta">
-<span class="category">{{ post.category }}</span>
-<span class="mr-2">{{ post.created_at }}</span> &bullet;
+<span class="category">{{ page.category }}</span>
+<span class="mr-2">{{ page.created_at }}</span> &bullet;
 <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
 </div>
-<h2>{{ post.title }}</h2>
+<h2>{{ page.title }}</h2>
 </span>
                             </a>
                         </div>
@@ -51,20 +51,21 @@
                 </div>
                 <div class="row">
                     <div class="col-md-12 text-center">
+                        <p>Page: {{ page.number }}/3</p>
                         <nav aria-label="Page navigation" class="text-center">
                             <ul class="pagination">
-                                {% if post.has_previous %}
-                                    <li><a href="?page={{ post.previous_page_number }}"><</a></li>
+                                {% if page.has_previous %}
+                                    <li><a href="?page={{ page.previous_page_number }}"><</a></li>
                                 {% endif %}
-                                {% for page in post.paginator.page_range %}
-                                    {% if page == post.number %}
-                                        <li class="active"><span>{{ page }}</span></li>
+                                {% for pagee in page.paginator.page_range %}
+                                    {% if page.number == pagee %}
+                                        <li class="page-item active"><a class="page-link">{{ pagee }}</a></li>
                                     {% else %}
-                                        <li><a href="?page={{ page }}">{{ page }}</a></li>
+                                        <li class="page-item"><a class='page-link' href="?page={{ pagee }}">{{ pagee }}</a></li>
                                     {% endif %}
                                 {% endfor %}
-                                {% if posts.has_next %}
-                                    <li><a href="?page={{ post.next_page_number }}">></a></li>
+                                {% if page.has_next %}
+                                    <li><a href="?page={{ page.next_page_number }}">></a></li>
                                 {% endif %}
                             </ul>
                         </nav>

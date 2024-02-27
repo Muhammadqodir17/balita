@@ -87,14 +87,14 @@
 <footer class="site-footer">
     <div class="container">
         <div class="row mb-5">
-            {% for page in page %}
+            {% for base in base %}
                 {% if forloop.counter <= 1 %}
                     <div class="col-md-4">
                 <h3>Paragraph</h3>
                 <p>
-                    <img src="{{ page.image.url }}" alt="Image placeholder" class="img-fluid">
+                    <img src="{{ base.image.url }}" alt="Image placeholder" class="img-fluid">
                 </p>
-                <p>{{ post.description|truncatewords:20 }}</p>
+                <p>{{ base.description|truncatewords:20 }}</p>
             </div>
                 {% endif %}
             {% endfor %}
@@ -104,15 +104,15 @@
                         <h3>Latest Post</h3>
                         <div class="post-entry-sidebar">
                             <ul>
-                                {% for page in page %}
+                                {% for base in base %}
                                     {% if forloop.counter > 1 and forloop.counter <= 4%}
                                         <li>
-                                    <a href="/blog/{{ page.id }}">
-                                        <img src="{{ page.image.url }}" alt="Image placeholder" class="mr-4">
+                                    <a href="/blog/{{ base.id }}">
+                                        <img src="{{ base.image.url }}" alt="Image placeholder" class="mr-4">
                                         <div class="text">
-                                            <h4>{{ page.title }}</h4>
+                                            <h4>{{ base.title }}</h4>
                                             <div class="post-meta">
-                                                <span class="mr-2">{{ page.created_at }}</span> &bullet;
+                                                <span class="mr-2">{{ base.created_at }}</span> &bullet;
                                                 <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
                                             </div>
                                         </div>

@@ -28,18 +28,18 @@
             </div>
         </div>
         <div class="row">
-            {% for post in posts %}
-                {% if forloop.counter < 4 %}
+            {% for pp in pp %}
+                {% if forloop.counter <= 3 %}
                     <div class="col-md-6 col-lg-4">
-                <a href="/blog/{{ post.id }}" class="a-block d-flex align-items-center height-md"
-                   style="background-image: url({{ post.image.url }}); ">
+                <a href="/blog/{{ pp.id }}" class="a-block d-flex align-items-center height-md"
+                   style="background-image: url({{ pp.image.url }}); ">
                     <div class="text">
                         <div class="post-meta">
-                            <span class="category">{{ post.category }}</span>
-                            <span class="mr-2">{{ post.created_at }}</span> &bullet;
+                            <span class="category">{{ pp.category }}</span>
+                            <span class="mr-2">{{ pp.created_at }}</span> &bullet;
                             <span class="ml-2"><span class="fa fa-comments"></span> 4</span>
                         </div>
-                        <h3>{{ post.title }}</h3>
+                        <h3>{{ pp.title }}</h3>
                     </div>
                 </a>
             </div>
@@ -65,7 +65,7 @@
                 <div class="row">
                     {% for page in page %}
                         <div class="col-md-6">
-                        <a href="/blog/{{ post.id }}" class="blog-entry element-animate" data-animate-effect="fadeIn">
+                        <a href="/blog/{{ page.id }}" class="blog-entry element-animate" data-animate-effect="fadeIn">
                             <img src="{{ page.image.url }}" alt="Image placeholder">
                             <div class="blog-content-body">
                                 <div class="post-meta">
