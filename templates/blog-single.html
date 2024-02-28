@@ -15,8 +15,10 @@
                     {{ post.description }}
                 </div>
                 <div class="pt-5">
-                    <p>Categories: <a href="#">{{ post.category }}</a>, <a href="#">Travel</a> Tags: <a href="#">#manila</a>, <a
-                            href="#">#asia</a></p>
+                    <p>Tags:
+                        {% for tags in post.tag.all %}
+                            <a href="/tags/{{ tags.id }}">#{{ tags.name }}</a>
+                        {% endfor %}
                 </div>
                 <div class="pt-5">
                     <h3 class="mb-5">Comments</h3>
@@ -115,18 +117,9 @@
                 <div class="sidebar-box">
                     <h3 class="heading">Tags</h3>
                     <ul class="tags">
-                        <li><a href="#">Travel</a></li>
-                        <li><a href="#">Adventure</a></li>
-                        <li><a href="#">Food</a></li>
-                        <li><a href="#">Lifestyle</a></li>
-                        <li><a href="#">Business</a></li>
-                        <li><a href="#">Freelancing</a></li>
-                        <li><a href="#">Travel</a></li>
-                        <li><a href="#">Adventure</a></li>
-                        <li><a href="#">Food</a></li>
-                        <li><a href="#">Lifestyle</a></li>
-                        <li><a href="#">Business</a></li>
-                        <li><a href="#">Freelancing</a></li>
+                        {% for tag in tags %}
+                            <li><a href="/tags/{{ tag.id }}">{{ tag.name }}</a></li>
+                        {% endfor %}
                     </ul>
                 </div>
             </div>

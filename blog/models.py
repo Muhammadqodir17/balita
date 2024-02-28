@@ -3,6 +3,14 @@ from config.base_models import BaseModel
 from blog.validators import validate_uz_phone_number
 
 
+class Tag(BaseModel):
+    objects = None
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
+
 class Category(BaseModel):
 
     objects = None
@@ -14,6 +22,7 @@ class Category(BaseModel):
 
 class Post(BaseModel):
     objects = None
+    tag = models.ManyToManyField('Tag', blank=True, related_name='posts')
     name = models.CharField(max_length=100)
     image = models.ImageField(upload_to='posts/')
     title = models.CharField(max_length=100)

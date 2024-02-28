@@ -1,18 +1,21 @@
 from django.shortcuts import render, redirect
-from blog.models import Contact, Post, Comment, Category
+from unicodedata import category
+
+from blog.models import Contact, Post, Comment, Category, Tag
 from django.core.paginator import Paginator
 from django.db.models import Q
 
 
 def home_view(request):
-    pp = Post.objects.filter(is_published=True).order_by("-created_at")
-    posts = Post.objects.filter(is_published=True)
-    categories = Category.objects.all()
-
     data = Post.objects.filter(is_published=True)
     page = Paginator(data, 6)
     page_list = request.GET.get('page')
     page = page.get_page(page_list)
+
+    tags = Tag.objects.all()
+    pp = Post.objects.filter(is_published=True).order_by("-created_at")
+    posts = Post.objects.filter(is_published=True)
+    categories = Category.objects.all()
 
     base = Post.objects.filter(is_published=True).order_by("-created_at")
 
@@ -27,6 +30,7 @@ def home_view(request):
 
     d = {
         'page': page,
+        'tags': tags,
         'pp': pp,
         'posts': posts,
         'base': base,
@@ -37,6 +41,7 @@ def home_view(request):
 
 
 def category_view(request):
+    tags = Tag.objects.all()
     base = Post.objects.filter(is_published=True).order_by("-created_at")
     posts = Post.objects.filter(is_published=True)
     categories = Category.objects.all()
@@ -44,43 +49,54 @@ def category_view(request):
     data = request.GET
     cat = data.get('category')
     if cat:
-        category = Category.objects.get(name=cat)
-        data = Post.objects.filter(is_published=True, category=category)
+        categoryy = Category.objects.get(name=cat)
+        data = Post.objects.filter(is_published=True, category=categoryy)
         page = Paginator(data, 2)
         page_list = request.GET.get('page')
         page = page.get_page(page_list)
     else:
-        category = Category.objects.get(name=cat)
+        categoryy = Category.objects.get(name=cat)
         data = Post.objects.filter(is_published=True)
         page = Paginator(data, 2)
         page_list = request.GET.get('page')
         page = page.get_page(page_list)
+
     d = {
         'posts': posts,
+        'tags': tags,
         'base': base,
         'page': page,
-        'category': category,
+        'category': categoryy,
         'categories': categories,
-        'categoriess': 'activate'
     }
     return render(request, 'category.html', context=d)
 
 
 def blog_single_detail_view(request, pk):
+    tags = Tag.objects.all()
     base = Post.objects.filter(is_published=True).order_by("-created_at")
     categories = Category.objects.all()
     posts = Post.objects.filter(is_published=True)
     if request.method == 'POST':
         data = request.POST
-        obj = Comment.objects.create(post_id=pk, name=data['name'], email=data['email'],message=data['message'])
+        obj = Comment.objects.create(post_id=pk, name=data['name'], email=data['email'], message=data['message'])
         obj.save()
         return redirect(f'/blog/{pk}')
     post = Post.objects.get(id=pk)
     comments = Comment.objects.filter(post_id=pk)
-    return render(request, 'blog-single.html', context={'posts': posts, 'base': base, 'post': post, 'comments': comments, 'categories': categories})
+    d = {
+        'posts': posts,
+        'tags': tags,
+        'base': base,
+        'post': post,
+        'comments': comments,
+        'categories': categories
+    }
+    return render(request, 'blog-single.html', context=d)
 
 
 def about_view(request):
+    tags = Tag.objects.all()
     base = Post.objects.filter(is_published=True).order_by("-created_at")
     data = Post.objects.filter(is_published=True).order_by('-created_at')
     page = Paginator(data, 6)
@@ -95,6 +111,7 @@ def about_view(request):
     categories = Category.objects.all()
     d = {
         'page': page,
+        'tags': tags,
         'base': base,
         'post': post,
         'about': 'active',
@@ -104,11 +121,13 @@ def about_view(request):
 
 
 def contact_view(request):
+    tags = Tag.objects.all()
     base = Post.objects.filter(is_published=True).order_by("-created_at")
     categories = Category.objects.all()
     posts = Post.objects.filter(is_published=True)
     d = {
         'posts': posts,
+        'tags': tags,
         'base': base,
         'contact': 'active',
         'categories': categories
@@ -121,3 +140,13 @@ def contact_view(request):
         obj.save()
         return redirect('/contact')
     return render(request, 'contact.html', context=d)
+
+
+def tags_view(request, pk):
+    tags = Tag.objects.get(id=pk)
+    posts = Post.objects.filter(is_published=True, tag=tags)
+    d = {
+        'posts': posts,
+        'tags_name': tags.name
+    }
+    return render(request, "category.html", context=d)

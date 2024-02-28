@@ -34,10 +34,10 @@
                     <a href="#"><span class="fa fa-snapchat"></span></a>
                 </div>
                 <div class="col-3 search-top">
-
-                    <form action="{% url 'home' %}" class="search-top-form">
+                    <form action="{% url 'home' %}" method='POST' class="search-top-form">
+                        {% csrf_token %}
                         <span class="icon fa fa-search"></span>
-                        <input type="search" id="s" placeholder="Type keyword to search..." name="search">
+                        <input type="search" placeholder="Type keyword to search..." name="q">
                     </form>
                 </div>
             </div>
