@@ -1,9 +1,6 @@
 from django.shortcuts import render, redirect
-from unicodedata import category
-
 from blog.models import Contact, Post, Comment, Category, Tag
 from django.core.paginator import Paginator
-from django.db.models import Q
 
 
 def home_view(request):
@@ -49,13 +46,13 @@ def category_view(request):
     data = request.GET
     cat = data.get('category')
     if cat:
-        categoryy = Category.objects.get(name=cat)
-        data = Post.objects.filter(is_published=True, category=categoryy)
+        category = Category.objects.get(name=cat)
+        data = Post.objects.filter(is_published=True, category=category)
         page = Paginator(data, 2)
         page_list = request.GET.get('page')
         page = page.get_page(page_list)
     else:
-        categoryy = Category.objects.get(name=cat)
+        category = Category.objects.get(name=cat)
         data = Post.objects.filter(is_published=True)
         page = Paginator(data, 2)
         page_list = request.GET.get('page')
@@ -66,7 +63,7 @@ def category_view(request):
         'tags': tags,
         'base': base,
         'page': page,
-        'category': categoryy,
+        'category': category,
         'categories': categories,
     }
     return render(request, 'category.html', context=d)
