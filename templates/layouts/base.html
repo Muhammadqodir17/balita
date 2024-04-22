@@ -34,10 +34,10 @@
                     <a href="#"><span class="fa fa-snapchat"></span></a>
                 </div>
                 <div class="col-3 search-top">
-                    <form action="{% url 'home' %}" method='POST' class="search-top-form">
+                    <form action="/search/" method='POST' class="search-top-form">
                         {% csrf_token %}
                         <span class="icon fa fa-search"></span>
-                        <input type="search" placeholder="Type keyword to search..." name="q">
+                        <input name="query" type="text" id="s" placeholder="Type keyword to search...">
                     </form>
                 </div>
             </div>
@@ -64,7 +64,7 @@
                            aria-haspopup="true" aria-expanded="false">Categories</a>
                         <div class="dropdown-menu" aria-labelledby="dropdown05">
                             {% for category in categories %}
-                                <a class="dropdown-item" href="/category/?category={{ category.name }}">{{ category.name }}</a>
+                                <a class="dropdown-item" href="/category/?category={{ category.id }}">{{ category.name }}</a>
                             {% endfor %}
                         </div>
                     </li>

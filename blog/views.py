@@ -44,26 +44,39 @@ def category_view(request):
     categories = Category.objects.all()
 
     data = request.GET
-    cat = data.get('category')
-    if cat:
-        category = Category.objects.get(name=cat)
-        data = Post.objects.filter(is_published=True, category=category)
-        page = Paginator(data, 2)
-        page_list = request.GET.get('page')
-        page = page.get_page(page_list)
+    tag = data.get('tags')
+    name = data.get('category')
+
+    if tag:
+        post = Post.objects.filter(is_published=True, tag=tag)
     else:
-        category = Category.objects.get(name=cat)
-        data = Post.objects.filter(is_published=True)
-        page = Paginator(data, 2)
-        page_list = request.GET.get('page')
-        page = page.get_page(page_list)
+        post = Post.objects.filter(is_published=True)
+
+    if name:
+        category = Category.objects.filter(name=name).first()
+    else:
+        category = Category.objects.filter()
+
+    posts_cat = Post.objects.filter(is_published=True, category=category)
+
+    # category = Category.objects.get(name=name)
+    page = data.get('page', 1)
+    page_obj = Paginator(posts_cat, 2)
+
+    # else:
+    #     post = Post.objects.filter(is_published=True)
+    # page = Paginator(post, 2)
+    # page_list = request.GET.get('page')
+    # pah = page.get_page(page_list)
+    # pah = page.get_page(page)
 
     d = {
         'posts': posts,
+        'post': post,
+        'category': category,
         'tags': tags,
         'base': base,
-        'page': page,
-        'category': category,
+        'page': page_obj.page(page),
         'categories': categories,
     }
     return render(request, 'category.html', context=d)
@@ -96,6 +109,7 @@ def about_view(request):
     tags = Tag.objects.all()
     base = Post.objects.filter(is_published=True).order_by("-created_at")
     data = Post.objects.filter(is_published=True).order_by('-created_at')
+
     page = Paginator(data, 6)
     page_list = request.GET.get('page')
     page = page.get_page(page_list)
@@ -138,12 +152,30 @@ def contact_view(request):
         return redirect('/contact')
     return render(request, 'contact.html', context=d)
 
+#
+# def tags_view(request, pk):
+#     tags = Tag.objects.get(id=pk)
+#     posts = Post.objects.filter(is_published=True, tag=tags)
+#     d = {
+#         'posts': posts,
+#         'tags_name': tags.name
+#     }
+#     return render(request, "category.html", context=d)
 
-def tags_view(request, pk):
-    tags = Tag.objects.get(id=pk)
-    posts = Post.objects.filter(is_published=True, tag=tags)
-    d = {
+
+def search_view(request):
+    if request.method == 'POST':
+        data = request.POST
+        query = data['query']
+        return redirect(f'/search?q={query}')
+    query = request.GET.get('q')
+    if query is not None and len(query) >= 1:
+        posts = Post.objects.filter(is_published=True, title__icontains=query)
+    else:
+        posts = Post.objects.filter(is_published=True)
+    context = {
         'posts': posts,
-        'tags_name': tags.name
+        'categories': Category.objects.all()
     }
-    return render(request, "category.html", context=d)
+
+    return render(request, 'category.html', context=context)

@@ -17,7 +17,7 @@
                 <div class="pt-5">
                     <p>Tags:
                         {% for tags in post.tag.all %}
-                            <a href="/tags/{{ tags.id }}">#{{ tags.name }}</a>
+                            <a href="/category/?tags={{ tags.id }}">#{{ tags.name }}</a>
                         {% endfor %}
                 </div>
                 <div class="pt-5">
