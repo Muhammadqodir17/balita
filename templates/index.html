@@ -7,43 +7,39 @@
             <div class="col-md-12">
                 <div class="owl-carousel owl-theme home-slider">
                     {% for post in posts %}
-                        {% if forloop.counter < 4 %}
-                            <div>
+                        <div>
                         <a href="/blog/{{ post.id }}" class="a-block d-flex align-items-center height-lg"
                            style="background-image: url({{ post.image.url }}); ">
                             <div class="text half-to-full">
                                 <div class="post-meta">
                                     <span class="category">{{ post.category }}</span>
                                     <span class="mr-2">{{ post.created_at }}</span> &bullet;
-                                    <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                                    <span class="ml-2"><span class="fa fa-comments"></span> {{ post.comment_count }}</span>
                                 </div>
                                 <h3>{{ post.title }}</h3>
                                 <p>{{ post.description|truncatewords:30 }}</p>
                             </div>
                         </a>
                     </div>
-                        {% endif %}
                     {% endfor %}
                 </div>
             </div>
         </div>
         <div class="row">
             {% for pp in pp %}
-                {% if forloop.counter <= 3 %}
-                    <div class="col-md-6 col-lg-4">
+                <div class="col-md-6 col-lg-4">
                 <a href="/blog/{{ pp.id }}" class="a-block d-flex align-items-center height-md"
                    style="background-image: url({{ pp.image.url }}); ">
                     <div class="text">
                         <div class="post-meta">
                             <span class="category">{{ pp.category }}</span>
                             <span class="mr-2">{{ pp.created_at }}</span> &bullet;
-                            <span class="ml-2"><span class="fa fa-comments"></span> 4</span>
+                            <span class="ml-2"><span class="fa fa-comments"></span> {{ pp.comment_count }}</span>
                         </div>
                         <h3>{{ pp.title }}</h3>
                     </div>
                 </a>
             </div>
-                {% endif %}
             {% endfor %}
 
         </div>
@@ -71,7 +67,7 @@
                                 <div class="post-meta">
                                     <span class="category">{{ page.category }}</span>
                                     <span class="mr-2">{{ page.created_at }}</span> &bullet;
-                                    <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                                    <span class="ml-2"><span class="fa fa-comments"></span> {{ page.comment_count }}</span>
                                 </div>
                                 <h2>{{ page.title }}</h2>
                             </div>
@@ -128,14 +124,14 @@
             </div>
 
             <div class="col-md-12 col-lg-4 sidebar">
-                <div class="sidebar-box search-form-wrap">
-                    <form action="#" class="search-form">
-                        <div class="form-group">
-                            <span class="icon fa fa-search"></span>
-                            <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter">
-                        </div>
-                    </form>
-                </div>
+<!--                <div class="sidebar-box search-form-wrap">-->
+<!--                    <form action="#" class="search-form">-->
+<!--                        <div class="form-group">-->
+<!--                            <span class="icon fa fa-search"></span>-->
+<!--                            <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter">-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
 
                 <div class="sidebar-box">
                     <div class="bio text-center">
@@ -145,7 +141,7 @@
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem facilis sunt
                                 repellendus excepturi beatae porro debitis voluptate nulla quo veniam fuga sit molestias
                                 minus.</p>
-                            <p><a href="#" class="btn btn-primary btn-sm">Read my bio</a></p>
+                            <p><a href="/about" class="btn btn-primary btn-sm">Read my bio</a></p>
                             <p class="social">
                                 <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
                                 <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
@@ -179,15 +175,14 @@
 <!--                        </ul>-->
 <!--                    </div>-->
 <!--                </div>-->
-<!--                <div class="sidebar-box">-->
-<!--                    <h3 class="heading">Tags</h3>-->
-<!--                    <ul class="tags">-->
-<!--                        {% for tag in tags %}-->
-<!--                            <li><a href="/category/?tags={{ tags.id }}">{{ tag.name }}</a></li>-->
-<!--                        {% endfor %}-->
-
-<!--                    </ul>-->
-<!--                </div>-->
+                <div class="sidebar-box">
+                    <h3 class="heading">Tags</h3>
+                    <ul class="tags">
+                        {% for tag in tags %}
+                            <li><a href="/category/?tags={{ tag.id }}">{{ tag.name }}</a></li>
+                        {% endfor %}
+                    </ul>
+                </div>
             </div>
 
         </div>

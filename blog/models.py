@@ -28,6 +28,8 @@ class Post(BaseModel):
     title = models.CharField(max_length=100)
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     description = models.TextField()
+    comment_count = models.PositiveIntegerField(default=0)
+    view_count = models.PositiveIntegerField(default=0)
 
     is_published = models.BooleanField(default=True)
 

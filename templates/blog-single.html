@@ -9,7 +9,7 @@
                 <div class="post-meta">
                     <span class="category">{{ post.category }}</span>
                     <span class="mr-2">{{ post.created_at }}</span> &bullet;
-                    <span class="ml-2"><span class="fa fa-comments"></span> 3</span>
+                    <span class="ml-2"><span class="fa fa-comments"></span> {{ post.comment_count }}</span>
                 </div>
                 <div class="post-content-body">
                     {{ post.description }}
@@ -63,14 +63,14 @@
             </div>
 
             <div class="col-md-12 col-lg-4 sidebar">
-                <div class="sidebar-box search-form-wrap">
-                    <form action="#" class="search-form">
-                        <div class="form-group">
-                            <span class="icon fa fa-search"></span>
-                            <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter">
-                        </div>
-                    </form>
-                </div>
+<!--                <div class="sidebar-box search-form-wrap">-->
+<!--                    <form action="#" class="search-form">-->
+<!--                        <div class="form-group">-->
+<!--                            <span class="icon fa fa-search"></span>-->
+<!--                            <input type="text" class="form-control" id="s" placeholder="Type a keyword and hit enter">-->
+<!--                        </div>-->
+<!--                    </form>-->
+<!--                </div>-->
 
                 <div class="sidebar-box">
                     <div class="bio text-center">
@@ -80,7 +80,7 @@
                             <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Exercitationem facilis sunt
                                 repellendus excepturi beatae porro debitis voluptate nulla quo veniam fuga sit molestias
                                 minus.</p>
-                            <p><a href="#" class="btn btn-primary btn-sm">Read my bio</a></p>
+                            <p><a href="/about" class="btn btn-primary btn-sm">Read my bio</a></p>
                             <p class="social">
                                 <a href="#" class="p-2"><span class="fa fa-facebook"></span></a>
                                 <a href="#" class="p-2"><span class="fa fa-twitter"></span></a>
@@ -118,7 +118,7 @@
                     <h3 class="heading">Tags</h3>
                     <ul class="tags">
                         {% for tag in tags %}
-                            <li><a href="/tags/{{ tag.id }}">{{ tag.name }}</a></li>
+                            <li><a href="/category/?tags={{ tag.id }}">{{ tag.name }}</a></li>
                         {% endfor %}
                     </ul>
                 </div>
